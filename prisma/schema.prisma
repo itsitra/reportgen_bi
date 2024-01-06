@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  username      String    @db.VarChar(50)
+  password      String    @db.VarChar(50)
+  Role          String    @db.VarChar(10)
+  status        String    @default("A") @db.VarChar(1)
+  Category      String    @db.VarChar(20)
+  Mill_id       Int       @default(0)
+  Created_Date  DateTime
+  Created_By    Int       @default(0)
+  Modified_Date DateTime? @updatedAt
+  Modified_By   Int       @default(0)
+
+  @@map("users")
+}
+
+model Customer {
+  custid         Int     @id @default(autoincrement())
+  name           String  @db.VarChar(100)
+  address1       String  @db.Text
+  address2       String  @db.Text
+  city           String  @db.VarChar(155)
+  state          String  @db.VarChar(50)
+  country        String  @db.VarChar(50)
+  pincode        String  @db.VarChar(7)
+  email          String? @db.VarChar(50)
+  phone          String  @db.VarChar(50)
+  mobile         String  @db.VarChar(30)
+  fax            String? @db.VarChar(50)
+  customertype   String  @db.VarChar(1)
+  status         String  @db.VarChar(1)
+  Contact_Person String  @db.VarChar(50)
+  Designation    String  @db.VarChar(50)
+
+  @@map("mcustomer")
+}
+
+model MachineryMaster {
+  Mac_Id                 Int       @id @default(autoincrement())
+  Mac_Code               Int
+  Mac_Name               String    @db.VarChar(50)
+  Dept_Code              Int       @default(0)
+  Dept_Name              String    @db.VarChar(50)
+  Make                   String    @default("0") @db.VarChar(50)
+  Model                  String    @default("0") @db.VarChar(50)
+  Group_Name             String    @default("0") @db.VarChar(50)
+  Scutchers              Int       @default(0)
+  Type_of_feed           String    @default("0") @db.VarChar(50)
+  Type_of_card           String    @db.VarChar(50)
+  Deliveries_per_machine Int       @default(0)
+  Spdls_per_frame        Int       @default(0)
+  Drums_per_machine      Int       @default(0)
+  No_of_heads            Int       @default(0)
+  Location               String    @default("0") @db.VarChar(50)
+  Serial_No              String    @default("0") @db.VarChar(50)
+  Purchase_Date          DateTime?
+  Mill_id                Int       @default(0)
+  Unit_id                Int       @default(0)
+  Created_Date           DateTime
+  Created_By             Int       @default(0)
+  Modified_Date          DateTime? @updatedAt
+  Modified_By            Int       @default(0)
+  Status                 String    @default("A") @db.Char(1)
+
+  @@map("machinery_master")
+}
